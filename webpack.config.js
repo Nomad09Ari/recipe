@@ -2,40 +2,29 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  mode: "development",
-  entry: {
-    index: "./src/js/index.js",
+  entry: "./src/js/index.js",
+  output: {
+    filename: "main.js",
+    path: path.resolve(__dirname, "dist"),
   },
-
-  devtool: "inline-source-map",
   devServer: {
-    static: "./dist",
+    contentBase: "./dist",
   },
-
   plugins: [
     new HtmlWebpackPlugin({
       filename: "index.html",
       template: "src/index.html",
     }),
   ],
-  output: {
-    filename: "main.js",
-    path: path.resolve(__dirname, "dist"),
-  },
-
-  optimization: {
-    runtimeChunk: "single",
-  },
-
   module: {
     rules: [
       {
-        test: /\.(?:js|mjs|cjs)$/,
+        test: /\.m?js$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
           options: {
-            presets: [["@babel/preset-env", { targets: "defaults" }]],
+            presets: ["@babel/preset-env"],
           },
         },
       },

@@ -1,1 +1,3 @@
-/* ES6 module 
+import query from "./model/search";
+
+console.log("Search: " + query);
